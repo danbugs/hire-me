@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
 	  )
 	);
 
-	context.subscriptions.push(vscode.commands.registerCommand('hire-me.helloWorld', () => {
+	context.subscriptions.push(vscode.commands.registerCommand('hire-me.main', () => {
 		MainPanel.createOrShow(context.extensionUri);
 	}));
 

@@ -93,7 +93,7 @@ export class MainPanel {
 
     private _getHtmlForWebview(webview: vscode.Webview) {
         const scriptUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "out/compiled", "HelloWorld.js")
+            vscode.Uri.joinPath(this._extensionUri, "out/compiled", "Main.js")
         );
 
         const stylesResetUri = webview.asWebviewUri(vscode.Uri.joinPath(
