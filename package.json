@@ -11,6 +11,7 @@
 	],
 	"activationEvents": [
 		"onCommand:hire-me.main",
+		"onCommand:hire-me.authenticate",
 		"onView:hire-me-sidebar"
 	],
 	"main": "./dist/extension.js",
@@ -39,6 +40,10 @@
 			{
 				"command": "hire-me.main",
 				"title": "Hire Me!"
+			},
+			{
+				"command": "hire-me.authenticate",
+				"title": "Authenticate"
 			}
 		]
 	},
