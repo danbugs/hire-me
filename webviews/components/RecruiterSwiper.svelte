@@ -29,7 +29,7 @@
         <QuestionCard bind:question={questions[0]} />
     </div>
     <div style="display: flex;">
-        <div style="width: 70px;" />
+        <div style="width: 70px;  margin-top: 20px;" />
         <ButtonIcon
             disabled={true}
             on:click={() => {
@@ -37,6 +37,7 @@
             }}
             icon="arrow-left"
         />
+        <div style="width: 70px;" />
         <ButtonIcon
             disabled={false}
             on:click={() => {
@@ -44,6 +45,12 @@
             }}
             icon="arrow-right"
         />
+        </div>
+    </div>
+    <div>
+        {#each answers as answer (answer.id)}
+            <li>{answer.text}</li>
+        {/each}
     </div>
 </div>
 
