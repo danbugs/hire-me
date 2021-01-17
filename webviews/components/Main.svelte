@@ -103,6 +103,7 @@
             </div>
         </form>
         <div>
+            <h1>Your questions:</h1>
             <RecruiterSwiper {questions} />
         </div>
     {/if}

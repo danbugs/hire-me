@@ -3,7 +3,6 @@
     import type { User } from "../shared/types";
     import InputField from "../ui/InputField.svelte";
     import LoadingButton from "../ui/LoadingButton.svelte";
-    import Checkbox from "../ui/Checkbox.svelte";
 
     export let data: User;
     export let buttonText: string;
