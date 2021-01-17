@@ -8,4 +8,9 @@ export type User = {
 export type Question = {
     text: string;
     creatorId: string;
+    id: string;
 };
+
+export interface FeedResponse {
+    questions: Question[];
+  }
