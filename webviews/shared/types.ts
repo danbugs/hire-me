@@ -4,3 +4,8 @@ export type User = {
     githubId: string;
     isRecruiter: boolean;
 };
+
+export type Question = {
+    text: string;
+    creatorId: string;
+};

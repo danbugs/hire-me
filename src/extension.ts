@@ -16,10 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	context.subscriptions.push(vscode.commands.registerCommand('hire-me.main', () => {
-		//MainPanel.createOrShow(context.extensionUri);
-		vscode.window.showInformationMessage(
-			"token value is: " + TokenManager.getToken()
-		  );
+		MainPanel.createOrShow(context.extensionUri);
 	}));
 
 	context.subscriptions.push(

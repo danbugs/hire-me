@@ -1,5 +1,7 @@
 import * as vscode from "vscode";
+import { apiBaseUrl } from "./contants";
 import { getNonce } from "./getNonce";
+import { TokenManager } from "./TokenManager";
 
 export class MainPanel {
     public static currentPanel: MainPanel | undefined;
@@ -73,6 +75,13 @@ export class MainPanel {
         this._panel.webview.html = this._getHtmlForWebview(webview);
         webview.onDidReceiveMessage(async (data) => {
             switch (data.type) {
+                case "get-token": {
+                    await webview.postMessage({
+                      type: "token",
+                      value: TokenManager.getToken(),
+                    });
+                    break;
+                  }
                 case "onInfo": {
                     if (!data.value) {
                         return;
@@ -123,6 +132,8 @@ export class MainPanel {
                 <link href="${stylesMainUri}" rel="stylesheet">
                 <link href="" rel="stylesheet">
                 <script nonce="${nonce}">
+                    const tsvscode = acquireVsCodeApi();
+                    const apiBaseUrl = ${JSON.stringify(apiBaseUrl)}
                 </script>
             </head>
             <body>
