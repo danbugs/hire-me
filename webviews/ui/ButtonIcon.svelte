@@ -10,7 +10,7 @@
     export let disabled: boolean;
 </script>
 
-<button on:click disabled>
+<button on:click disabled={disabled}>
     {#if icon === "x"}
         <svg
             width="24"
