@@ -39,8 +39,7 @@
             accessToken = "";
             user = null;
             tsvscode.postMessage({ type: "logout", value: undefined });
-        }}>logout</button
-    >
+        }}>logout</button>
 {:else}
     <button
         on:click={() => {
