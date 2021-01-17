@@ -1,10 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import type { User } from "../types";
+    import type { User } from "../shared/types";
+    import EditProfile from "./EditProfile.svelte";
     let accessToken = "";
     let loading = true;
     let user: User | null = null;
-    
+
     onMount(async () => {
         window.addEventListener("message", async (event) => {
             const message = event.data;
@@ -29,16 +30,21 @@
 {#if loading}
     <div>loading...</div>
 {:else if user}
-    <div>Hello: {user.name}</div>
+    <EditProfile
+        bind:data={user} {accessToken}
+        buttonText="save"
+    />
     <button
         on:click={() => {
-            accessToken = '';
+            accessToken = "";
             user = null;
-            tsvscode.postMessage({ type: 'logout', value: undefined });
-        }}>logout</button>
+            tsvscode.postMessage({ type: "logout", value: undefined });
+        }}>logout</button
+    >
 {:else}
     <button
         on:click={() => {
-            tsvscode.postMessage({ type: 'authenticate', value: undefined });
-        }}>login with GitHub</button>
+            tsvscode.postMessage({ type: "authenticate", value: undefined });
+        }}>login with GitHub</button
+    >
 {/if}

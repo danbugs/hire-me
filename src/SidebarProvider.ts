@@ -56,6 +56,10 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                     vscode.window.showErrorMessage(data.value);
                     break;
                 }
+                case "tokens": {
+                    await TokenManager.setToken(data.value);
+                    break;
+                }
             }
         });
     }
