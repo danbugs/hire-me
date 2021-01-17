@@ -18,6 +18,7 @@
     let disabled = false;
     let form: HTMLFormElement;
     let questions: Question[] = [];
+    let recruiter_questions: Question[] = [];
 
     onMount(async () => {
         window.addEventListener("message", async (event) => {
@@ -40,8 +41,16 @@
                             authorization: `Bearer ${accessToken}`,
                         },
                     });
-                    const payload = await response2.json();
-                    questions = payload.questions;
+                    const payload2 = await response2.json();
+                    questions = payload2.questions;
+
+                    const response3 = await fetch(`${apiBaseUrl}/recruiter_question`, {
+                        headers: {
+                            authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+                    const payload3 = await response3.json();
+                    recruiter_questions = payload3.questions;
             }
         });
         tsvscode.postMessage({ type: "get-token", value: undefined });
@@ -87,6 +96,11 @@
                 >
                     {#if disabled}loading{:else}submit{/if}
                 </LoadingButton>
+            </div>
+            <div>
+                {#each recruiter_questions as recruiter_question (recruiter_question.id)}
+                    <div>{recruiter_question.text}</div>
+                {/each}
             </div>
         {/if}
     {/if}
