@@ -32,6 +32,7 @@
     </div>
     <div style="display: flex; margin-top: 20px;">
         <ButtonIcon
+            disabled={false}
             on:click={() => {
                 liked = false;
                 view();
@@ -40,6 +41,7 @@
         />
         <div style="width: 70px;" />
         <ButtonIcon
+            disabled={false}
             on:click={() => {
                 liked = true;
             }}
