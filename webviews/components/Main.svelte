@@ -17,7 +17,7 @@
     };
     let disabled = false;
     let form: HTMLFormElement;
-    let questions: Question[];
+    let questions: Question[] = [];
 
     onMount(async () => {
         window.addEventListener("message", async (event) => {
@@ -34,17 +34,17 @@
                     user = data.user;
                     question.creatorId = data.user.id;
                     loading = false;
+
+                    const response2 = await fetch(`${apiBaseUrl}/question`, {
+                        headers: {
+                            authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+                    const payload = await response2.json();
+                    questions = payload.questions;
             }
         });
         tsvscode.postMessage({ type: "get-token", value: undefined });
-
-        const response = await fetch(`${apiBaseUrl}/question`, {
-            headers: {
-                authorization: `Bearer ${accessToken}`,
-            },
-        });
-        const payload = await response.json();
-        questions = payload.questions;
     });
 </script>
 
@@ -94,6 +94,6 @@
 
 {#if user}
     {#if !user.isRecruiter}
-        <Swiper {questions} />
+        <Swiper {questions} {accessToken} />
     {/if}
 {/if}

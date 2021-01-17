@@ -11,6 +11,13 @@ export type Question = {
     id: string;
 };
 
+export type Answer = {
+    text: string;
+    creatorId: string;
+    id: string;
+    questionId: string;
+};
+
 export interface FeedResponse {
     questions: Question[];
   }
