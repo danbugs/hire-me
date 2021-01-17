@@ -1,8 +1,11 @@
 import * as vscode from 'vscode';
+import { authenticate } from './authenticate';
 import { MainPanel } from './MainPanel';
 import { SidebarProvider } from './SidebarProvider';
+import { TokenManager } from './TokenManager';
 
 export function activate(context: vscode.ExtensionContext) {
+	TokenManager.globalState = context.globalState;
 
 	const sidebarProvider = new SidebarProvider(context.extensionUri);
 	context.subscriptions.push(
@@ -13,8 +16,22 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	context.subscriptions.push(vscode.commands.registerCommand('hire-me.main', () => {
-		MainPanel.createOrShow(context.extensionUri);
+		//MainPanel.createOrShow(context.extensionUri);
+		vscode.window.showInformationMessage(
+			"token value is: " + TokenManager.getToken()
+		  );
 	}));
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand("hire-me.authenticate", () => {
+		  try {
+			authenticate(() => {});
+		  } catch (err) {
+			console.log(err);
+		  }
+		})
+	  );
+	
 
 }
 
