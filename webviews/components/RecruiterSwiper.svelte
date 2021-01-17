@@ -1,31 +1,49 @@
 <script lang="ts">
-    import type { Question, Answer } from "../shared/types";
+    import type { Question, Answer, User } from "../shared/types";
     import QuestionCard from "./QuestionCard.svelte";
     import ButtonIcon from "../ui/ButtonIcon.svelte";
     import { onMount } from "svelte";
+    import { create_out_transition } from "svelte/internal";
     export let questions: Question[];
-    let answers: Answer[];
-
+    export let answers: Answer[];
+    export let accessToken: string;
+    export let submitters: User[];
+    let counter = 0;
     async function view() {
         const id = questions[0].id;
+        counter = 0;
         questions = questions.slice(1);
-    }
-    onMount(async () => {
-        const response = await fetch(`${apiBaseUrl}/answer`, {
-            body: {
+        const response4 = await fetch(`${apiBaseUrl}/answer`, {
+            method: "PUT",
+            body: JSON.stringify({
                 questionId: questions[0].id,
-            } as any,
+            }),
             headers: {
+                "content-type": "application/json",
                 authorization: `Bearer ${accessToken}`,
             },
         });
-        const payload = await response.json();
-        answers = payload.questions;
-    });
+        const payload4 = await response4.json();
+        answers = payload4.answers;
+        answers.forEach(async function (value) {
+            const response5 = await fetch(`${apiBaseUrl}/user`, {
+                method: "PUT",
+                body: JSON.stringify({
+                    id: value.creatorId,
+                }),
+                headers: {
+                    "content-type": "application/json",
+                    authorization: `Bearer ${accessToken}`,
+                },
+            });
+            const payload5 = await response5.json();
+            submitters = [payload5.user, ...submitters];
+        });
+    }
 </script>
 
 <div class="center">
-    <div style="position: relative;">
+    <div style="position: relative; margin: 20px;">
         <QuestionCard bind:question={questions[0]} />
     </div>
     <div style="display: flex;">
@@ -45,13 +63,12 @@
             }}
             icon="arrow-right"
         />
-        </div>
     </div>
-    <div>
-        {#each answers as answer (answer.id)}
-            <li>{answer.text}</li>
-        {/each}
-    </div>
+</div>
+<div>
+    {#each answers as answer (answer.id)}
+        <li style="margin:20px;">{answer.text} by {submitters[counter++].name}</li>
+    {/each}
 </div>
 
 <style>

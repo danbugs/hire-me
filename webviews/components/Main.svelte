@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { mutation } from "../shared/mutation";
-    import type { User, Question } from "../shared/types";
+    import type { User, Question, Answer } from "../shared/types";
     import InputField from "../ui/InputField.svelte";
     import LoadingButton from "../ui/LoadingButton.svelte";
     import RecruiterSwiper from "./RecruiterSwiper.svelte";
@@ -20,7 +20,8 @@
     let form: HTMLFormElement;
     let questions: Question[] = [];
     let recruiter_questions: Question[] = [];
-
+    let answers: Answer[] = [];
+    let submitters: User[] = [];
     onMount(async () => {
         window.addEventListener("message", async (event) => {
             const message = event.data;
@@ -55,6 +56,35 @@
                     );
                     const payload3 = await response3.json();
                     recruiter_questions = payload3.questions;
+
+                    const response4 = await fetch(`${apiBaseUrl}/answer`, {
+                        method: "PUT",
+                        body: JSON.stringify({
+                            questionId: questions[0].id,
+                        }),
+                        headers: {
+                            "content-type": "application/json",
+                            authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+                    const payload4 = await response4.json();
+                    answers = payload4.answers;
+
+                    answers.forEach(async function (value) {
+                        const response5 = await fetch(`${apiBaseUrl}/user`, {
+                            method: "PUT",
+                            body: JSON.stringify({
+                                id: value.creatorId,
+                            }),
+                            headers: {
+                                "content-type": "application/json",
+                                authorization: `Bearer ${accessToken}`,
+                            },
+                        });
+                        const payload5 = await response5.json();
+                        submitters = [payload5.user, ...submitters];
+                    });
+                    
             }
         });
         tsvscode.postMessage({ type: "get-token", value: undefined });
@@ -102,10 +132,12 @@
                 </LoadingButton>
             </div>
         </form>
-        <div>
-            <h1>Your questions:</h1>
-            <RecruiterSwiper {questions} />
-        </div>
+        {#if questions && (submitters.length > 0) && answers}
+            <div>
+                <h1>Your questions:</h1>
+                <RecruiterSwiper {questions} {answers} {accessToken} {submitters}/>
+            </div>
+        {/if}
     {/if}
 {/if}
 

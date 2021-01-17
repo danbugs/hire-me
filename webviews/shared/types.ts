@@ -15,7 +15,7 @@ export type Answer = {
     text: string;
     creatorId: string;
     id: string;
-    questionId: string;
+    questionId: number;
 };
 
 export interface FeedResponse {
