@@ -14,12 +14,6 @@
         <QuestionCard bind:question={questions[0]} />
     </div>
     <div style="display: flex; margin-top: 20px;">
-        <ButtonIcon
-            on:click={() => {
-                view();
-            }}
-            icon="arrow-left"
-        />
         <div style="width: 70px;" />
         <ButtonIcon
             on:click={() => {

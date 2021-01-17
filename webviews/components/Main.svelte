@@ -4,7 +4,7 @@
     import type { User, Question } from "../shared/types";
     import InputField from "../ui/InputField.svelte";
     import LoadingButton from "../ui/LoadingButton.svelte";
-import RecruiterSwiper from "./RecruiterSwiper.svelte";
+    import RecruiterSwiper from "./RecruiterSwiper.svelte";
     import Swiper from "./Swiper.svelte";
     let accessToken = "";
     let loading = true;
@@ -45,11 +45,14 @@ import RecruiterSwiper from "./RecruiterSwiper.svelte";
                     const payload2 = await response2.json();
                     questions = payload2.questions;
 
-                    const response3 = await fetch(`${apiBaseUrl}/recruiter_question`, {
-                        headers: {
-                            authorization: `Bearer ${accessToken}`,
-                        },
-                    });
+                    const response3 = await fetch(
+                        `${apiBaseUrl}/recruiter_question`,
+                        {
+                            headers: {
+                                authorization: `Bearer ${accessToken}`,
+                            },
+                        }
+                    );
                     const payload3 = await response3.json();
                     recruiter_questions = payload3.questions;
             }
@@ -58,14 +61,14 @@ import RecruiterSwiper from "./RecruiterSwiper.svelte";
     });
 </script>
 
-<form
-    bind:this={form}
-    disabled
-    on:submit={() => false}
-    style="margin-top: 20px;"
->
-    {#if user}
-        {#if user.isRecruiter}
+{#if user}
+    {#if user.isRecruiter}
+        <form
+            bind:this={form}
+            disabled
+            on:submit={() => false}
+            style="margin-top: 20px;"
+        >
             <h1>Add a Question!</h1>
             <InputField
                 required
@@ -98,12 +101,12 @@ import RecruiterSwiper from "./RecruiterSwiper.svelte";
                     {#if disabled}loading{:else}submit{/if}
                 </LoadingButton>
             </div>
-            <div>
-                <RecruiterSwiper {questions}/>
-            </div>
-        {/if}
+        </form>
+        <div>
+            <RecruiterSwiper {questions} />
+        </div>
     {/if}
-</form>
+{/if}
 
 {#if user}
     {#if !user.isRecruiter}
