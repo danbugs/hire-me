@@ -6,9 +6,11 @@
         | "trash"
         | "arrow-right"
         | "arrow-left";
+
+    export let disabled: boolean;
 </script>
 
-<button on:click>
+<button on:click disabled>
     {#if icon === "x"}
         <svg
             width="24"
@@ -49,8 +51,6 @@
             /></svg
         >
     {:else if icon === "arrow-right"}
-    <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 3.093l-5 5V8.8l5 5 .707-.707-4.146-4.147H14v-1H3.56L7.708 3.8 7 3.093z"/></svg>
-    {:else if icon === "arrow-left"}
         <svg
             width="16"
             height="16"
@@ -61,6 +61,19 @@
                 fill-rule="evenodd"
                 clip-rule="evenodd"
                 d="M9 13.887l5-5V8.18l-5-5-.707.707 4.146 4.147H2v1h10.44L8.292 13.18l.707.707z"
+            /></svg
+        >
+    {:else if icon === "arrow-left"}
+        <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            ><path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M7 3.093l-5 5V8.8l5 5 .707-.707-4.146-4.147H14v-1H3.56L7.708 3.8 7 3.093z"
             /></svg
         >
     {:else}

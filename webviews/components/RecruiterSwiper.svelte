@@ -16,13 +16,14 @@
     <div style="display: flex; margin-top: 20px;">
         <div style="width: 70px;" />
         <ButtonIcon
-        disabled={false}
-        on:click={() => {
-            view();
-        }}
-        icon="arrow-left"
-    />
+            disabled={true}
+            on:click={() => {
+                view();
+            }}
+            icon="arrow-left"
+        />
         <ButtonIcon
+            disabled={false}
             on:click={() => {
                 view();
             }}
