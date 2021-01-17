@@ -4,6 +4,7 @@
     import type { User, Question } from "../shared/types";
     import InputField from "../ui/InputField.svelte";
     import LoadingButton from "../ui/LoadingButton.svelte";
+import RecruiterSwiper from "./RecruiterSwiper.svelte";
     import Swiper from "./Swiper.svelte";
     let accessToken = "";
     let loading = true;
@@ -98,9 +99,7 @@
                 </LoadingButton>
             </div>
             <div>
-                {#each recruiter_questions as recruiter_question (recruiter_question.id)}
-                    <div>{recruiter_question.text}</div>
-                {/each}
+                <RecruiterSwiper {questions}/>
             </div>
         {/if}
     {/if}

@@ -6,7 +6,6 @@
     import InputField from "../ui/InputField.svelte";
     import { mutation } from "../shared/mutation";
     import LoadingButton from "../ui/LoadingButton.svelte";
-    import { identity } from "svelte/internal";
     export let questions: Question[];
     export let accessToken: string;
     let answer: {

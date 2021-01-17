@@ -46,6 +46,6 @@
     {#if question}
         <div>{question.text}</div>
         {:else}
-        <div>You've run out of questions! Check back another time.</div>
+        <div>You've run out of questions!</div>
     {/if}
   </div>

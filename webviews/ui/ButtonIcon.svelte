@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let icon: "heart" | "x" | "logout" | "trash";
+    export let icon: "heart" | "x" | "logout" | "trash" | "arrow-left" | "arrow-right";
   </script>
   
   <style>
